@@ -2,25 +2,31 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Simple synchronous JavaScript example</title>
+    <title>Simple XHR async callback example</title>
   </head>
   <body>
-    <button>Click me</button>
     <script>
-      const btn = document.querySelector('button');
-      const worker = new Worker('worker.js');
+      function loadAsset(url, type, callback) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.responseType = type;
 
-      btn.addEventListener('click', () => {
-        worker.postMessage('Go!');
+        xhr.onload = function() {
+          callback(xhr.response);
+        };
 
-        let pElem = document.createElement('p');
-        pElem.textContent = 'This is a newly-added paragraph.';
-        document.body.appendChild(pElem);
-      });
-
-      worker.onmessage = function(e) {
-        console.log(e.data);
+        xhr.send();
       }
+
+      function displayImage(blob) {
+        let objectURL = URL.createObjectURL(blob);
+
+        let image = document.createElement('img');
+        image.src = objectURL;
+        document.body.appendChild(image);
+      }
+
+      loadAsset('coffee.jpg', 'blob', displayImage);
     </script>
   </body>
 </html>

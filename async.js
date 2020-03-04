@@ -58,3 +58,61 @@ btn.addEventListener("click", () => {
 worker.onmessage = function(e) {
   console.log(e.data);
 };
+
+// Async 2 types callback and promise
+
+// Async callback
+// Secon parameter of the addEventListener() is async callback
+btn.addEventListener("click", () => {
+  alert("You clicked me!");
+
+  let pElem = document.createElement("p");
+  pElem.textContent = "This is a newly-added paragraph.";
+  document.body.appendChild(pElem);
+});
+
+// Another example
+
+function loadAsset(url, type, callback) {
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", url);
+  xhr.responseType = type;
+
+  xhr.onload = function() {
+    callback(xhr.response);
+  };
+
+  xhr.send();
+}
+
+function displayImage(blob) {
+  let objectURL = URL.createObjectURL(blob);
+
+  let image = document.createElement("img");
+  image.src = objectURL;
+  document.body.appendChild(image);
+}
+
+loadAsset("coffee.jpg", "blob", displayImage);
+
+// not all callbacks are async
+// Array.prototype.forEach()
+const gods = ["Apollo", "Artemis", "Ares", "Zeus"];
+
+gods.forEach(function(eachName, index) {
+  console.log(index + ". " + eachName);
+});
+
+// Promise - modern fetching fetch() like XMLHttpRequest
+
+fetch("products.json")
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(json) {
+    products = json;
+    initialize();
+  })
+  .catch(function(err) {
+    console.log("Fetch problem: " + err.message);
+  });
