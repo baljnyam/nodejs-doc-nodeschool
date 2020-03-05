@@ -116,3 +116,77 @@ fetch("products.json")
   .catch(function(err) {
     console.log("Fetch problem: " + err.message);
   });
+
+// Another example
+
+let myFetch = fetch(url);
+
+myFetch.then(function(response) {
+  response.text().then(function(text) {
+    poemDisplay.textContent = text;
+  });
+});
+
+// 1. fetch() return an promise that resolve the HTTP response
+// 2. inside .then() will be response as a parameter
+// 3. another .then textContent making <pre> element to equal the text string
+
+// It can done by another
+
+fetch(url)
+  .then(function(response) {
+    return response.text();
+  })
+  .then(function(text) {
+    poemDisplay.textContent = text;
+  });
+
+// return statement in front of response.text()
+
+//-----------------------------------------------------------------------------
+
+//setTimeout() setInterval() requestAnimationFrame()
+
+function sayHi(who) {
+  alert(`Hello ${who}!`);
+}
+
+let myGreeting = setTimeout(sayHi, 2000, "Mr. Universe");
+
+clearTimeout(myGreeting);
+//----------interval
+function displayTime() {
+  let date = new Date();
+  let time = date.toLocaleTimeString();
+  document.getElementById("demo").textContent = time;
+}
+
+const createClock = setInterval(displayTime, 1000);
+
+clearInterval(myInterval);
+
+// recursive
+
+let i = 1;
+
+setTimeout(function run() {
+  console.log(i);
+  i++;
+  setTimeout(run, 100);
+}, 100);
+
+setInterval(function run() {
+  console.log(i);
+  i++;
+}, 100);
+
+// set a block of code to run as soon as all of the main thread has finished running
+
+setTimeout(function() {
+  alert("World");
+}, 0);
+
+alert("Hello");
+
+// -------------------------------
+
