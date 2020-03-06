@@ -209,3 +209,16 @@ function fetchAndDecode(url, type) {
       );
     });
 }
+
+// IndexedDB methods to use promises:
+function promisifyRequest(request) {
+  return new Promise(function(resolve, reject) {
+    request.onsuccess = function() {
+      resolve(request.result);
+    };
+
+    request.onerror = function() {
+      reject(request.error);
+    };
+  });
+}
