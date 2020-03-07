@@ -222,3 +222,17 @@ function promisifyRequest(request) {
     };
   });
 }
+
+// Example
+
+async function myFetch() {
+  let response = await fetch("coffee.jpg");
+  let myBlob = await response.blob();
+
+  let objectURL = URL.createObjectURL(myBlob);
+  let image = document.createElement("img");
+  image.src = objectURL;
+  document.body.appendChild(image);
+}
+
+myFetch();
