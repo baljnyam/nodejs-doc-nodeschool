@@ -84,3 +84,7 @@ var auth = new AuthController(
   new LoginController()
 );
 auth.checkAuth();
+
+
+// ------------------Async---------------
+
