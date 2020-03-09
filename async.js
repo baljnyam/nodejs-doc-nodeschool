@@ -236,3 +236,45 @@ async function myFetch() {
 }
 
 myFetch();
+
+// async function
+
+let hello = async () => {
+  return "HEllo";
+};
+
+hello().then(value => console.log(value));
+//or
+hello().then(console.log);
+
+// fetch to async/await
+
+fetch("coffee.jpg")
+  .then(response => response.blob())
+  .then(myBlob => {
+    let objectURL = URL.createObjectURL(myBlob);
+    let image = document.createElement("img");
+    image.src = objectURL;
+    document.body.appendChild(image);
+  })
+  .catch(e => {
+    console.log(
+      "There has been a problem with your fetch operation: " + e.message
+    );
+  });
+
+// async/await
+
+async function myFetch() {
+  let response = await fetch("coffee.jpg");
+  let myBlob = await response.blob();
+
+  let objectURL = URL.createObjectURL(myBlob);
+  let image = document.createElement("img");
+  image.src = objectURL;
+  document.body.appendChild(image);
+}
+
+myFetch().catch(e => {
+  console.log("there ha been a problem with your fetch: " + e.message);
+});
